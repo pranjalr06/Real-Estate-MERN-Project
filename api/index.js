@@ -8,6 +8,16 @@ const app = express();
 
 app.use(express.json());    
 
+app.use((err, req, res, next) => {          //middlewear => err - which is comming from middleware|req - data from browser/client|res- response from server to client|next - to go to next middleware
+    const statusCode = err.statusCode || 500;   //statuscode- from the input of middleware
+    const message = err.message || 'Internal Server Error';
+    return res.status(statusCode).json({
+        success: false,
+        statusCode,
+        message,
+    });
+});
+
 // mongoose
 //     .connect(process.env.MONGO)
 //     .then(() => {
