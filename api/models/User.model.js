@@ -17,7 +17,7 @@ const userSchema = new mongoose.Schema({
         type:String,
         require: true,  
     },
-}, { timestaps: true });     //it automatically gives you the time when user logs in
+}, { timestamps: true });     //it automatically gives you the time when user logs in
 
 const User = mongoose.model("User",userSchema);
 export default User;

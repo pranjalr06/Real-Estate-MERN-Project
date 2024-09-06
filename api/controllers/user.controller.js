@@ -4,4 +4,4 @@ export const test = (req,res) => {
     });
 }
 
-//this code is for the router.get() in user.router.js file
+//this function 'test' is for the router.get() in user.router.js file
