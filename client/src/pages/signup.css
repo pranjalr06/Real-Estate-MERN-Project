@@ -1,0 +1,16 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.background{
+    background-image: url('../images/signup_image3.jpg') ;
+    background-repeat: no-repeat;
+    background-size:cover;
+    background-attachment: fixed;
+    /* height:100%;
+    width: 100vw; */
+    background-position: center ;
+    background-blend-mode:darken;
+}
+
