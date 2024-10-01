@@ -31,10 +31,11 @@ const Signup = () => {
         });
       const data = await res.json();  //to convert the response to json   
       console.log(data);
+
       if (data.success === false) {
         setLoading(false);
-        setError(data.message);
-        return;
+        setError(error.message);
+        return 
       };
       setLoading(false);
       setError(null);
@@ -48,7 +49,7 @@ const Signup = () => {
 
 
   return (
-    <div className='background py-28'>
+    <div className='background py-28 mt-2'>
       <div className='p-7 bg-gray-200 outline outline-offset-2 outline-slate-800 shadow-lg shadow-slate-700/100 max-w-lg mx-auto my-20 s rounded-xl flex flex-col justify-center align-center border '>
         <h1 className='text-3xl text-center font-semibold mb-7'>Sign Up</h1>
 
