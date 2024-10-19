@@ -17,6 +17,10 @@ const userSchema = new mongoose.Schema({
         type:String,
         require: true,  
     },
+    avatar: {
+        type: String,
+        default:"https://static.vecteezy.com/system/resources/previews/002/275/847/non_2x/male-avatar-profile-icon-of-smiling-caucasian-man-vector.jpg"
+    },
 }, { timestamps: true });     //it automatically gives you the time when user logs in
 
 const User = mongoose.model("User",userSchema);
