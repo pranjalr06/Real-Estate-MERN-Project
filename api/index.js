@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import userRouter from  './routes/user.routes.js'
 import authRouter from './routes/auth.routes.js'
 import cookieParser from 'cookie-parser';
+import listingRouter from './routes/listing.router.js';
 
 dotenv.config();
 
@@ -44,6 +45,7 @@ app.use((err, req, res, next) => {          //middlewear => err - which is commi
 
 app.use('/api/user',userRouter);    // /api/user - will be the constant start url for user
 app.use('/api/auth',authRouter); 
+app.use('/api/listing', listingRouter);
 
 
 app.listen(3000, () => {
