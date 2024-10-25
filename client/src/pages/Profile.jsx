@@ -2,7 +2,17 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux'
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage'
 import { app } from '../firebase';
-import { updateUserStart, updateUserSuccess, updateUserFailure, deleteUserStart, deleteUserSuccess, deleteUserFailure } from '../redux/user/userSlice';
+import { 
+  updateUserStart, 
+  updateUserSuccess, 
+  updateUserFailure, 
+  deleteUserStart, 
+  deleteUserSuccess, 
+  deleteUserFailure,
+  signOutStart, 
+  signOutSuccess, 
+  signOutFailure
+ } from '../redux/user/userSlice';
 import { useDispatch } from 'react-redux';
 
 
@@ -94,6 +104,24 @@ const Profile = () => {
       dispatch(deleteUserFailure(error.message))
     }
   }  
+
+  //--------------------------------------------------------------------
+  const handleSignOut = async() => {
+    try {
+      dispatch(signOutStart());
+      const res = await fetch('/api/auth/signout');
+      const data = await res.json();
+      if (data.success === false) {
+        dispatch(deleteUserFailure(data.message));
+        return;
+      }
+      dispatch(deleteUserSuccess(data));
+    } catch (error) {
+      dispatch(deleteUserFailure(error.message));
+    }
+  };
+
+  //------------------------------------------------------------------
   //firebase storage(in storage folder ) -
   /* 
      allow read;
@@ -101,7 +129,7 @@ const Profile = () => {
       request.resource.size < 2 * 1024 * 1024 &&
       request.resource.contentType.matches('image/.*')
   */
-
+//------------------------------------------------------------------
 
 
   return (
@@ -150,7 +178,7 @@ const Profile = () => {
 
           <div className='flex justify-between  p-2'>
             <span onClick={handleDeleteUser} className='text-red-700 cursor-pointer hover:text-red-800 hover:font-medium'>Delete Account</span>
-            <span className='text-red-700 cursor-pointer hover:text-red-800 hover:font-medium'>Sign out</span>
+            <span onClick={handleSignOut} className='text-red-700 cursor-pointer hover:text-red-800 hover:font-medium'>Sign out</span>
           </div>
 
         </form>
