@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux'
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage'
 import { app } from '../firebase';
-import { updateUserStart, updateUserSuccess, updateUserFailure } from '../redux/user/userSlice';
+import { updateUserStart, updateUserSuccess, updateUserFailure, deleteUserStart, deleteUserSuccess, deleteUserFailure } from '../redux/user/userSlice';
 import { useDispatch } from 'react-redux';
 
 
@@ -76,7 +76,24 @@ const Profile = () => {
       dispatch(updateUserFailure(error.message));
     }
   };
-  //--------------------------------------------------------------------
+  //--------------------------------------------------------------------4
+
+  const handleDeleteUser = async() => {
+    try {
+      dispatch(deleteUserStart());
+      const res = await fetch(`/api/user/delete/${currentUser._id}`,{
+        method: 'DELETE',
+      });
+      const data = await res.json();
+      if (data.success === false) {
+        dispatch(deleteUserFailure(data.message));
+        return; 
+      } 
+      dispatch(deleteUserSuccess(data));
+    } catch(error) {
+      dispatch(deleteUserFailure(error.message))
+    }
+  }  
   //firebase storage(in storage folder ) -
   /* 
      allow read;
@@ -132,7 +149,7 @@ const Profile = () => {
         disabled:opacity-95 hover:font-semibold' > {loading ? 'Loading...' : 'Update'}  </button>
 
           <div className='flex justify-between  p-2'>
-            <span className='text-red-700 cursor-pointer hover:text-red-800 hover:font-medium'>Delete Account</span>
+            <span onClick={handleDeleteUser} className='text-red-700 cursor-pointer hover:text-red-800 hover:font-medium'>Delete Account</span>
             <span className='text-red-700 cursor-pointer hover:text-red-800 hover:font-medium'>Sign out</span>
           </div>
 
