@@ -71,7 +71,8 @@ const Signin = () => {
             <span className='text-blue-700'>Sign up</span>
           </Link>
         </div>
-        <span className='text-center'>{error && <p className='text-red-500 mt-5'>{error}</p>}</span>
+        {/* <span className='text-center'>{error && <p className='text-red-500 mt-5'>{error}</p>}</span> */}
+        <p className='text-red-700 mt-3 text-center'>{error ? error : ''}</p>
       </div>
     </div>
   )
